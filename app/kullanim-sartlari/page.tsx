@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import LegalPage from "@/components/LegalPage";
 import { site } from "@/config/site";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Kullanım Şartları",
   description: `${site.brand} kullanım şartları. Fiyatlar yerinde/görsel değerlendirme sonrası belirlenir.`,
-};
+  path: "/kullanim-sartlari",
+});
 
 export default function KullanimSartlariPage() {
   return (

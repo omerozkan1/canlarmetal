@@ -1,5 +1,11 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Home } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Sayfa Bulunamadı",
+  robots: { index: false, follow: true },
+};
 
 export default function NotFound() {
   return (

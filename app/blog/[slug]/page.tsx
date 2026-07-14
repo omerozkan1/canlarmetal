@@ -6,7 +6,14 @@ import { blogPosts, postBySlug, categoryLabels } from "@/config/blog";
 import Breadcrumb from "@/components/Breadcrumb";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import BlogCard from "@/components/BlogCard";
+import JsonLd from "@/components/JsonLd";
 import { buildGenericMessage } from "@/lib/whatsapp";
+import {
+  pageMetadata,
+  jsonLdGraph,
+  breadcrumbSchema,
+  blogPostingSchema,
+} from "@/lib/seo";
 
 export function generateStaticParams() {
   return blogPosts.map((p) => ({ slug: p.slug }));
@@ -18,11 +25,14 @@ export function generateMetadata({
   params: { slug: string };
 }): Metadata {
   const post = postBySlug(params.slug);
-  if (!post) return { title: "Yazı bulunamadı" };
-  return {
+  if (!post) return { title: "Yazı bulunamadı", robots: { index: false, follow: false } };
+  return pageMetadata({
     title: post.title,
     description: post.excerpt,
-  };
+    path: `/blog/${post.slug}`,
+    type: "article",
+    publishedTime: post.date,
+  });
 }
 
 export default function BlogPostPage({ params }: { params: { slug: string } }) {
@@ -31,8 +41,18 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
 
   const related = blogPosts.filter((p) => p.slug !== post.slug).slice(0, 3);
 
+  const schema = jsonLdGraph([
+    breadcrumbSchema([
+      { name: "Ana Sayfa", path: "/" },
+      { name: "Blog", path: "/blog" },
+      { name: post.title, path: `/blog/${post.slug}` },
+    ]),
+    blogPostingSchema(post),
+  ]);
+
   return (
     <article className="mx-auto max-w-3xl px-4 py-14">
+      <JsonLd data={schema} />
       <Breadcrumb
         items={[
           { label: "Ana Sayfa", href: "/" },

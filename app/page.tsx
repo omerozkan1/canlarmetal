@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import {
   Banknote,
@@ -25,15 +26,42 @@ import DistrictsGrid from "@/components/DistrictsGrid";
 import BlogCard from "@/components/BlogCard";
 import SectionHeading from "@/components/SectionHeading";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import JsonLd from "@/components/JsonLd";
 import { buildWhatsAppUrl, buildGenericMessage } from "@/lib/whatsapp";
+import {
+  pageMetadata,
+  jsonLdGraph,
+  breadcrumbSchema,
+  serviceSchema,
+  faqSchema,
+} from "@/lib/seo";
+
+export const metadata: Metadata = pageMetadata({
+  description:
+    "Anadolu Yakası'nda hurda metal, çalışan ya da arızalı beyaz eşya ve ikinci el eşya alımı. Yerinde tartım, kantar şeffaflığı, kapınızda peşin nakit ödeme.",
+  path: "/",
+});
 
 const rozetIcon = [Banknote, Scale, ShieldCheck, Zap];
 
 export default function HomePage() {
   const waHref = buildWhatsAppUrl(buildGenericMessage());
 
+  const schema = jsonLdGraph([
+    breadcrumbSchema([{ name: "Ana Sayfa", path: "/" }]),
+    ...serviceCards.map((s) =>
+      serviceSchema({
+        name: s.title,
+        description: s.desc,
+        path: s.href ?? "/",
+      })
+    ),
+    faqSchema(site.faq),
+  ]);
+
   return (
     <>
+      <JsonLd data={schema} />
       <AnnouncementBar />
 
       {/* HERO */}

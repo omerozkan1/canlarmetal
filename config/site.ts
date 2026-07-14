@@ -53,6 +53,75 @@ export const site = {
     subtitle:
       "Kadıköy'den Anadolu Yakası'nın her ilçesine; çalışan ya da arızalı beyaz eşya, ikinci el mobilya ve her tür hurda metali yerinde tartıp değerinde, peşin nakit alıyoruz.",
   },
+
+  // Google Analytics 4 Measurement ID (yalnızca production'da yüklenir)
+  gaMeasurementId: "G-GCTEJ9ENLG",
+
+  // ---- SEO / yapılandırılmış veri ----
+  seo: {
+    // Varsayılan sosyal paylaşım görseli (public/ kökünde .svg olarak üretiliyor)
+    ogImage: "/og-image.svg",
+    // Arama motoru doğrulama kodları (elde varsa doldurun; boşsa etiket basılmaz)
+    verification: {
+      google: "",
+      yandex: "",
+    },
+    // Genel anahtar kelimeler (içerikle uyumlu)
+    keywords: [
+      "hurda metal",
+      "hurda metal alımı",
+      "metal geri dönüşüm",
+      "beyaz eşya alımı",
+      "ikinci el eşya alımı",
+      "eşya tahliyesi",
+      "hurdacı",
+      "İstanbul Anadolu Yakası hurdacı",
+      "Canlar Metal",
+    ],
+  },
+
+  // İşletme künyesi — LocalBusiness / Organization şeması için
+  business: {
+    legalName: "Canlar Metal",
+    // Adres bileşenleri (PostalAddress)
+    streetAddress: "Sahrayıcedid Mah. Üstçeşme Sok. No:16",
+    addressLocality: "Kadıköy",
+    addressRegion: "İstanbul",
+    postalCode: "34734",
+    addressCountry: "TR",
+    // Yaklaşık koordinatlar (Kadıköy / Sahrayıcedid)
+    geo: { latitude: 40.9745, longitude: 29.0805 },
+    // Çalışma saatleri (schema.org openingHours biçimi)
+    openingHours: [
+      { days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], opens: "08:00", closes: "20:00" },
+      { days: ["Sunday"], opens: "10:00", closes: "18:00" },
+    ],
+    priceRange: "₺₺",
+  },
+
+  // Sık sorulan sorular — FAQPage şeması + ileride sayfada gösterim
+  faq: [
+    {
+      q: "Arızalı beyaz eşya alıyor musunuz?",
+      a: "Evet. Buzdolabı, çamaşır ve bulaşık makinesi, klima, kombi ve fırın gibi cihazları çalışsın çalışmasın alıyoruz. Arızalı cihazlar hurda değeri üzerinden değerlendirilir.",
+    },
+    {
+      q: "Fiyatı nasıl belirliyorsunuz?",
+      a: "Hurda metalde fiyat; metalin cinsi, ağırlığı (kantarda önünüzde tartılır) ve günün piyasa değerine göre belirlenir. Beyaz eşyada ise cihazın tipi, durumu ve içerdiği değerli parçalar dikkate alınır.",
+    },
+    {
+      q: "Hangi bölgelerde hizmet veriyorsunuz?",
+      a: "İstanbul Anadolu Yakası'nın 12 ilçesinde (Kadıköy, Üsküdar, Ataşehir, Maltepe, Kartal, Pendik, Tuzla, Ümraniye, Çekmeköy, Sancaktepe, Sultanbeyli, Beykoz) yerinde alım yapıyoruz.",
+    },
+    {
+      q: "Ödemeyi nasıl yapıyorsunuz?",
+      a: "Ödeme, eşya alındığı anda adresinizde elden peşin nakit olarak yapılır.",
+    },
+    {
+      q: "Randevu almak için ne yapmalıyım?",
+      a: "WhatsApp'tan eşyanızın birkaç fotoğrafını ve adresinizi gönderin; ekibimiz size hızlıca teklif sunup uygun bir saat için randevu oluşturur.",
+    },
+  ],
 };
 
 export type SiteConfig = typeof site;

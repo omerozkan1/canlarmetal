@@ -2,15 +2,26 @@ import type { Metadata } from "next";
 import { Phone, MessageCircle, Mail, MapPin } from "lucide-react";
 import Breadcrumb from "@/components/Breadcrumb";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import JsonLd from "@/components/JsonLd";
 import { site } from "@/config/site";
 import { buildGenericMessage } from "@/lib/whatsapp";
+import { pageMetadata, jsonLdGraph, breadcrumbSchema } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "İletişim",
-  description: `Canlar Metal ile iletişime geçin. 7/24 WhatsApp, telefon ve e-posta. ${site.region}.`,
-};
+  description: `Canlar Metal ile iletişime geçin. 7/24 WhatsApp, iki telefon hattı ve e-posta. ${site.region}, Kadıköy.`,
+  path: "/iletisim",
+});
 
 export default function IletisimPage() {
+  const schema = jsonLdGraph([
+    breadcrumbSchema([
+      { name: "Ana Sayfa", path: "/" },
+      { name: "İletişim", path: "/iletisim" },
+    ]),
+    { "@type": "ContactPage", name: "İletişim — Canlar Metal", url: `${site.url}/iletisim` },
+  ]);
+
   const channels = [
     {
       icon: MessageCircle,
@@ -29,6 +40,7 @@ export default function IletisimPage() {
 
   return (
     <section className="mx-auto max-w-4xl px-4 py-14">
+      <JsonLd data={schema} />
       <Breadcrumb items={[{ label: "Ana Sayfa", href: "/" }, { label: "İletişim" }]} />
       <h1 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
         İletişim

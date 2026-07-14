@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import LegalPage from "@/components/LegalPage";
 import { site } from "@/config/site";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Gizlilik Politikası",
   description: `${site.brand} gizlilik politikası. Sitemiz kayıt/veritabanı tutmaz; iletişim WhatsApp üzerinden yürür.`,
-};
+  path: "/gizlilik-politikasi",
+});
 
 export default function GizlilikPage() {
   return (

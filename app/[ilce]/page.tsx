@@ -8,7 +8,16 @@ import QuickForm from "@/components/QuickForm";
 import Breadcrumb from "@/components/Breadcrumb";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import DistrictsGrid from "@/components/DistrictsGrid";
+import JsonLd from "@/components/JsonLd";
 import { buildGenericMessage } from "@/lib/whatsapp";
+import {
+  pageMetadata,
+  jsonLdGraph,
+  breadcrumbSchema,
+  districtBusinessSchema,
+  serviceSchema,
+  faqSchema,
+} from "@/lib/seo";
 
 export function generateStaticParams() {
   return districts.map((d) => ({ ilce: d.slug }));
@@ -20,19 +29,36 @@ export function generateMetadata({
   params: { ilce: string };
 }): Metadata {
   const d = districtBySlug(params.ilce);
-  if (!d) return { title: "Sayfa bulunamadı" };
-  return {
+  if (!d) return { title: "Sayfa bulunamadı", robots: { index: false, follow: false } };
+  return pageMetadata({
     title: `${d.name} Hurda & Beyaz Eşya Alımı`,
     description: d.seoText,
-  };
+    path: `/${d.slug}`,
+  });
 }
 
 export default function DistrictPage({ params }: { params: { ilce: string } }) {
   const d = districtBySlug(params.ilce);
   if (!d) notFound();
 
+  const schema = jsonLdGraph([
+    breadcrumbSchema([
+      { name: "Ana Sayfa", path: "/" },
+      { name: d.name, path: `/${d.slug}` },
+    ]),
+    districtBusinessSchema(d),
+    serviceSchema({
+      name: `${d.name} Hurda & Beyaz Eşya Alımı`,
+      description: d.seoText,
+      path: `/${d.slug}`,
+      serviceType: "Hurda ve beyaz eşya alımı",
+    }),
+    faqSchema(site.faq),
+  ]);
+
   return (
     <>
+      <JsonLd data={schema} />
       <section className="metal-texture">
         <div className="mx-auto max-w-6xl px-4 py-14">
           <Breadcrumb

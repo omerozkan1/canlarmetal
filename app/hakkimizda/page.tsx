@@ -2,15 +2,18 @@ import type { Metadata } from "next";
 import { Check } from "lucide-react";
 import Breadcrumb from "@/components/Breadcrumb";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import JsonLd from "@/components/JsonLd";
 import { site, districts } from "@/config/site";
 import { aboutShort } from "@/config/services";
 import { buildGenericMessage } from "@/lib/whatsapp";
+import { pageMetadata, jsonLdGraph, breadcrumbSchema } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Hakkımızda",
   description:
-    "Canlar Metal — İstanbul Anadolu Yakası'nda beyaz eşya, hurda metal ve ikinci el eşya alımı. Nakit ödeme, yerinde alım.",
-};
+    "Canlar Metal — İstanbul Anadolu Yakası'nda beyaz eşya, hurda metal ve ikinci el eşya alımı. Geleneksel esnaf güveni, yerinde tartım ve peşin nakit ödeme.",
+  path: "/hakkimizda",
+});
 
 const values = [
   "Yerinde ve şeffaf değerlendirme",
@@ -20,8 +23,16 @@ const values = [
 ];
 
 export default function HakkimizdaPage() {
+  const schema = jsonLdGraph([
+    breadcrumbSchema([
+      { name: "Ana Sayfa", path: "/" },
+      { name: "Hakkımızda", path: "/hakkimizda" },
+    ]),
+  ]);
+
   return (
     <section className="mx-auto max-w-3xl px-4 py-14">
+      <JsonLd data={schema} />
       <Breadcrumb items={[{ label: "Ana Sayfa", href: "/" }, { label: "Hakkımızda" }]} />
       <h1 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
         Hakkımızda

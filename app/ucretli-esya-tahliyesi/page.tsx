@@ -2,17 +2,42 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowDown, ShieldCheck, ChevronRight } from "lucide-react";
 import TahliyeWizard from "@/components/tahliye/TahliyeWizard";
+import JsonLd from "@/components/JsonLd";
 import { site } from "@/config/site";
+import {
+  pageMetadata,
+  jsonLdGraph,
+  breadcrumbSchema,
+  serviceSchema,
+  faqSchema,
+} from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Ücretli Eski Eşya Tahliye Hizmeti — Hızlı Teklif",
   description:
     "İstanbul Anadolu Yakası'nda mobilya atımı, ev boşaltma ve depo-bodrum temizliği. 5 adımlı sihirbaz ile bilgilerinizi toplayıp WhatsApp'tan net teklif alın.",
-};
+  path: "/ucretli-esya-tahliyesi",
+});
 
 export default function TahliyePage() {
+  const schema = jsonLdGraph([
+    breadcrumbSchema([
+      { name: "Ana Sayfa", path: "/" },
+      { name: "Ücretli Eşya Tahliyesi", path: "/ucretli-esya-tahliyesi" },
+    ]),
+    serviceSchema({
+      name: "Ücretli Eşya Tahliyesi",
+      description:
+        "Değeri olmayan eşya, ev/depo boşaltma ve moloz için ücretli, temiz ve hızlı tahliye hizmeti.",
+      path: "/ucretli-esya-tahliyesi",
+      serviceType: "Eşya tahliyesi ve ev boşaltma",
+    }),
+    faqSchema(site.faq),
+  ]);
+
   return (
     <>
+      <JsonLd data={schema} />
       {/* HERO */}
       <section className="metal-texture">
         <div className="mx-auto max-w-6xl px-4 py-14">
