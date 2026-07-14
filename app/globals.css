@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-graphite-950 text-graphite-100 antialiased;
+  color: #eeeeec;
+}
+
+/* Bölüm ayırıcı ince metal çizgisi */
+.hairline {
+  @apply border-t border-white/5;
+}
+
+/* Endüstriyel arkaplan dokusu (hero) */
+.metal-texture {
+  background-color: #0b0d10;
+  background-image: radial-gradient(
+      circle at 20% 15%,
+      rgba(201, 99, 29, 0.12),
+      transparent 45%
+    ),
+    radial-gradient(circle at 85% 0%, rgba(201, 99, 29, 0.08), transparent 40%);
+}
+
+/* Bakır gradient metin */
+.text-copper-gradient {
+  @apply bg-gradient-to-r from-copper-300 via-copper-400 to-copper-600 bg-clip-text text-transparent;
+}
+
+/* Reusable buton stilleri */
+.btn-primary {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl bg-copper-500 px-6 py-3 font-semibold text-white shadow-glow transition hover:bg-copper-600 active:scale-[0.98];
+}
+
+.btn-secondary {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-6 py-3 font-semibold text-graphite-100 transition hover:bg-white/10 active:scale-[0.98];
+}
+
+.btn-whatsapp {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl bg-copper-500 px-6 py-3 font-semibold text-white shadow-glow transition hover:bg-copper-600 active:scale-[0.98];
+}
+
+.chip {
+  @apply inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-graphite-200 transition hover:border-copper-400/50 hover:bg-copper-500/10;
+}
+
+.chip-active {
+  @apply border-copper-400 bg-copper-500/20 text-copper-100;
+}
+
+.card {
+  @apply rounded-2xl border border-white/8 bg-graphite-850 p-6 shadow-card;
+}
+
+.input-field {
+  @apply w-full rounded-xl border border-white/10 bg-graphite-900 px-4 py-3 text-graphite-100 outline-none transition focus:border-copper-400 focus:ring-2 focus:ring-copper-500/30;
+}
+
+.section-label {
+  @apply mb-2 inline-block text-sm font-semibold uppercase tracking-wider text-copper-400;
+}
+
+.social-ic {
+  @apply flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-graphite-300 transition hover:border-copper-400/50 hover:text-copper-400;
+}
