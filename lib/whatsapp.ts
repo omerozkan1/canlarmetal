@@ -12,26 +12,30 @@ export function buildWhatsAppUrl(message: string): string {
 }
 
 // ---- Şablon A — Alım (ana sayfa hızlı form / ilçe formu) ----
+// Zorunlu alanlar (ilçe, mahalle, eşya tipi, kat, asansör) doldurulmadan
+// çağrılmaz; yalnızca opsiyonel neZaman boş olabilir ve boşsa satırı basılmaz.
 export function buildAlimMessage(opts: {
   ilce: string;
+  mahalle: string;
   esyaTipi: string;
   kat: string;
   asansor: string;
-  neZaman: string;
+  neZaman?: string;
 }): string {
-  const { ilce, esyaTipi, kat, asansor, neZaman } = opts;
+  const { ilce, mahalle, esyaTipi, kat, asansor, neZaman } = opts;
   const talep = isBeyazEsya(esyaTipi)
     ? "Beyaz Eşya Alımı"
     : "Eşya / Hurda Alımı";
-  return [
+  const lines = [
     "Merhaba Canlar Metal,",
     `Talebim: ${talep}`,
-    `İlçe: ${ilce || "-"}`,
-    `Eşya Tipi: ${esyaTipi || "-"}`,
-    `Kat: ${kat || "-"} | Asansör: ${asansor || "-"}`,
-    `Ne zaman: ${neZaman || "-"}`,
-    "Fotoğraf gönderip fiyat öğrenmek istiyorum.",
-  ].join("\n");
+    `İlçe: ${ilce} / ${mahalle}`,
+    `Eşya Tipi: ${esyaTipi}`,
+    `Kat: ${kat} | Asansör: ${asansor}`,
+  ];
+  if (neZaman) lines.push(`Ne zaman: ${neZaman}`);
+  lines.push("Fotoğraf gönderip fiyat öğrenmek istiyorum.");
+  return lines.join("\n");
 }
 
 // ---- Şablon B — Ücretli Tahliye (bilgi toplama) ----
