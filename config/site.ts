@@ -57,6 +57,13 @@ export const site = {
   // Google Analytics 4 Measurement ID (yalnızca production'da yüklenir)
   gaMeasurementId: "G-GCTEJ9ENLG",
 
+  // Microsoft Clarity Project ID (yalnızca production'da yüklenir)
+  clarityProjectId: "xmr2wll95m",
+
+  // IndexNow API anahtarı — public/<key>.txt ile aynı olmalı.
+  // Gizli değildir; spec gereği herkese açık key dosyasında da yayınlanır.
+  indexNowKey: "f92d087e0f87f85a2449259364ee5c6f",
+
   // ---- SEO / yapılandırılmış veri ----
   seo: {
     // Varsayılan sosyal paylaşım görseli (public/ kökünde .svg olarak üretiliyor)
@@ -65,6 +72,8 @@ export const site = {
     verification: {
       google: "",
       yandex: "",
+      // Bing Webmaster (msvalidate.01)
+      bing: "80BB24702D5BC483D8356E932AA94DD3",
     },
     // Genel anahtar kelimeler (içerikle uyumlu)
     keywords: [

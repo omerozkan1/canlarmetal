@@ -1,0 +1,43 @@
+name: IndexNow — Deploy sonrası URL bildirimi
+
+# NEDEN GITHUB ACTION?
+# Bu proje `output: "export"` ile statik olarak dışa aktarılır; canlı bir
+# Next.js sunucusu (API route / server action) yoktur. Bu yüzden IndexNow
+# gönderimi runtime'da değil, DEPLOY SONRASI çalışan bir adımda yapılmalıdır.
+# Böylece anahtar dosyası (public/<key>.txt) canlıya çıktıktan SONRA arama
+# motorları onu doğrulayabilir. Aksi halde henüz yayında olmayan bir siteye
+# gönderim yaparız ve doğrulama başarısız olur.
+
+on:
+  # main'e push -> siteniz otomatik deploy oluyorsa, deploy sonrası tetik.
+  push:
+    branches: [main]
+    # Yalnızca içerik değiştiğinde çalış (yeni blog yazısı / yeni sayfa vs.)
+    paths:
+      - "config/blog.ts"
+      - "config/site.ts"
+      - "config/services.ts"
+      - "app/**/page.tsx"
+  # Elle de tetiklenebilir (Actions sekmesinden "Run workflow").
+  workflow_dispatch:
+
+jobs:
+  indexnow:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      # Deploy'ın tamamlanması için kısa bekleme (kendi deploy sürenize göre ayarlayın).
+      # Alternatif: deploy iş akışınızın `workflow_run` completed olayını dinleyin.
+      - name: Deploy'ın yayına geçmesini bekle
+        run: sleep 60
+
+      - name: IndexNow'a tüm URL'leri bildir
+        run: npm run indexnow

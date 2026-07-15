@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import JsonLd from "@/components/JsonLd";
+import MicrosoftClarity from "@/components/MicrosoftClarity";
 import { site } from "@/config/site";
 import {
   jsonLdGraph,
@@ -83,11 +84,17 @@ export const metadata: Metadata = {
     address: true,
   },
   category: "business",
-  ...(site.seo.verification.google || site.seo.verification.yandex
+  ...(site.seo.verification.google ||
+  site.seo.verification.yandex ||
+  site.seo.verification.bing
     ? {
         verification: {
           ...(site.seo.verification.google ? { google: site.seo.verification.google } : {}),
           ...(site.seo.verification.yandex ? { yandex: site.seo.verification.yandex } : {}),
+          // Bing Webmaster -> <meta name="msvalidate.01" content="..." />
+          ...(site.seo.verification.bing
+            ? { other: { "msvalidate.01": site.seo.verification.bing } }
+            : {}),
         },
       }
     : {}),
@@ -123,7 +130,10 @@ export default function RootLayout({
         <FloatingWhatsApp />
       </body>
       {process.env.NODE_ENV === "production" && (
-        <GoogleAnalytics gaId={site.gaMeasurementId} />
+        <>
+          <GoogleAnalytics gaId={site.gaMeasurementId} />
+          <MicrosoftClarity projectId={site.clarityProjectId} />
+        </>
       )}
     </html>
   );
