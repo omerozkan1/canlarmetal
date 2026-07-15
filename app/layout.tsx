@@ -122,6 +122,14 @@ export default function RootLayout({
 
   return (
     <html lang="tr">
+      <head>
+        {/* 3rd-party origin'lere erken DNS/TLS — analytics ağ gecikmesini azaltır.
+            Maps yalnızca tıklamayla yüklendiği için sadece dns-prefetch veriyoruz. */}
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://www.clarity.ms" crossOrigin="" />
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+        <link rel="dns-prefetch" href="https://www.google.com" />
+      </head>
       <body>
         <JsonLd data={globalSchema} />
         <Header />

@@ -24,6 +24,7 @@ import AnnouncementBar from "@/components/AnnouncementBar";
 import ServiceIcon from "@/components/ServiceIcon";
 import DistrictsGrid from "@/components/DistrictsGrid";
 import BlogCard from "@/components/BlogCard";
+import MapEmbed from "@/components/MapEmbed";
 import SectionHeading from "@/components/SectionHeading";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import JsonLd from "@/components/JsonLd";
@@ -282,15 +283,7 @@ export default function HomePage() {
       <section className="mx-auto max-w-6xl px-4 py-16">
         <SectionHeading label="Konumumuz" title="Bizi Haritada Bulun" center />
         <div className="overflow-hidden rounded-2xl border border-white/8">
-          <iframe
-            src={site.mapEmbedSrc}
-            width="100%"
-            height="380"
-            style={{ border: 0 }}
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            title="Canlar Metal Konum"
-          />
+          <MapEmbed height={380} />
         </div>
       </section>
     </>

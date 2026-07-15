@@ -3,6 +3,7 @@ import { Phone, MessageCircle, Mail, MapPin } from "lucide-react";
 import Breadcrumb from "@/components/Breadcrumb";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import JsonLd from "@/components/JsonLd";
+import MapEmbed from "@/components/MapEmbed";
 import { site } from "@/config/site";
 import { buildGenericMessage } from "@/lib/whatsapp";
 import { pageMetadata, jsonLdGraph, breadcrumbSchema } from "@/lib/seo";
@@ -99,15 +100,7 @@ export default function IletisimPage() {
       </div>
 
       <div className="mt-12 overflow-hidden rounded-2xl border border-white/8">
-        <iframe
-          src={site.mapEmbedSrc}
-          width="100%"
-          height="360"
-          style={{ border: 0 }}
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-          title="Canlar Metal Konum"
-        />
+        <MapEmbed height={360} />
       </div>
     </section>
   );
