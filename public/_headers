@@ -1,0 +1,10 @@
+# Güvenlik başlıkları — Netlify ve Cloudflare Pages bu dosyayı otomatik uygular.
+# (Vercel için next.config headers() output:export ile çalışmaz; Vercel'de
+#  vercel.json "headers" alanı kullanın — bkz. docs/security-headers.md)
+/*
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.clarity.ms https://*.clarity.ms; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.google.com https://maps.google.com https://www.googletagmanager.com https://*.clarity.ms https://c.bing.com; font-src 'self' data:; connect-src 'self' https://www.google-analytics.com https://*.clarity.ms https://c.clarity.ms; frame-src https://www.google.com https://maps.google.com; base-uri 'self'; form-action 'self'; frame-ancestors 'self'

@@ -99,7 +99,7 @@ export default function DistrictPage({ params }: { params: { ilce: string } }) {
               {/* Mahalleler */}
               {d.neighborhoods.length > 0 && (
                 <div className="mt-8">
-                  <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-graphite-500">
+                  <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-graphite-300">
                     Hizmet Verdiğimiz Mahalleler
                   </p>
                   <div className="flex flex-wrap gap-2">

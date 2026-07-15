@@ -39,6 +39,7 @@ export default function QuickForm({
 
       <div className="grid gap-3 sm:grid-cols-2">
         <select
+          aria-label="İlçe"
           className="input-field"
           value={ilce}
           onChange={(e) => setIlce(e.target.value)}
@@ -52,6 +53,7 @@ export default function QuickForm({
         </select>
 
         <select
+          aria-label="Eşya tipi"
           className="input-field"
           value={esyaTipi}
           onChange={(e) => setEsyaTipi(e.target.value)}
@@ -65,6 +67,7 @@ export default function QuickForm({
         </select>
 
         <select
+          aria-label="Kat"
           className="input-field"
           value={kat}
           onChange={(e) => setKat(e.target.value)}
@@ -78,6 +81,7 @@ export default function QuickForm({
         </select>
 
         <select
+          aria-label="Asansör"
           className="input-field"
           value={asansor}
           onChange={(e) => setAsansor(e.target.value)}
@@ -115,7 +119,7 @@ export default function QuickForm({
         Fiyat Al
         <ArrowRight className="h-5 w-5" />
       </button>
-      <p className="mt-3 text-center text-xs text-graphite-500">
+      <p className="mt-3 text-center text-xs text-graphite-300">
         Seçimlerini WhatsApp'a taşırız; birkaç fotoğrafla dakikalar içinde fiyat veririz.
       </p>
     </div>

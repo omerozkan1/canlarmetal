@@ -66,8 +66,8 @@ export const site = {
 
   // ---- SEO / yapılandırılmış veri ----
   seo: {
-    // Varsayılan sosyal paylaşım görseli (public/ kökünde .svg olarak üretiliyor)
-    ogImage: "/og-image.svg",
+    // Varsayılan sosyal paylaşım görseli — 1200x630 PNG (FB/LinkedIn/X SVG render etmez)
+    ogImage: "/og-image.png",
     // Arama motoru doğrulama kodları (elde varsa doldurun; boşsa etiket basılmaz)
     verification: {
       google: "",

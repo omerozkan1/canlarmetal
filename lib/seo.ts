@@ -10,10 +10,17 @@ import type { BlogPost } from "@/config/blog";
 
 const BASE = site.url.replace(/\/$/, "");
 
-/** Göreli yolu mutlak (canonical) URL'e çevirir. */
+/**
+ * Göreli yolu mutlak (canonical) URL'e çevirir.
+ * Site trailingSlash:true kullandığından, dosya olmayan yollara sona "/" eklenir
+ * ki canonical, sitemap ve JSON-LD URL'leri birebir aynı olsun.
+ */
 export function absoluteUrl(path = "/"): string {
-  if (path.startsWith("http")) return path;
-  return `${BASE}${path.startsWith("/") ? path : `/${path}`}`;
+  if (/^https?:\/\//i.test(path)) return path;
+  const p = path.startsWith("/") ? path : `/${path}`;
+  // Uzantısı olan (dosya) yollara veya zaten "/" ile bitenlere dokunma.
+  const withSlash = /\.[a-z0-9]+$/i.test(p) || p.endsWith("/") ? p : `${p}/`;
+  return `${BASE}${withSlash}`;
 }
 
 /**
@@ -30,7 +37,15 @@ export function pageMetadata(opts: {
 }): Metadata {
   const { title, description, path, type = "website", images, publishedTime } = opts;
   const canonical = absoluteUrl(path);
-  const ogImages = (images ?? [site.seo.ogImage]).map((src) => absoluteUrl(src));
+  // OG görselleri; boyut+alt ile — sosyal kart tarayıcıları kartı hemen ölçüp
+  // gösterebilsin (aksi halde string URL, layout'un boyutlu görselini ezerdi).
+  const ogImages = (images ?? [site.seo.ogImage]).map((src) => ({
+    url: absoluteUrl(src),
+    width: 1200,
+    height: 630,
+    alt: `${site.brand} — Hurda & Beyaz Eşya Alımı`,
+  }));
+  const twitterImages = ogImages.map((img) => img.url);
   // Başlık verilmeyen sayfalarda (ör. ana sayfa) marka + slogan kullanılır;
   // verilen başlıklara marka soneki eklenir (template ile aynı biçim).
   const socialTitle = title
@@ -38,7 +53,9 @@ export function pageMetadata(opts: {
     : `${site.brand} — Anadolu Yakası Hurda & Beyaz Eşya Alımı`;
 
   return {
-    title,
+    // title verilmediğinde anahtarı hiç basma ki layout'un title.default'u geçerli
+    // olsun; title:undefined basılırsa Next varsayılanı ezip boş bırakır.
+    ...(title ? { title } : {}),
     description,
     alternates: { canonical },
     openGraph: {
@@ -55,7 +72,7 @@ export function pageMetadata(opts: {
       card: "summary_large_image",
       title: socialTitle,
       description,
-      images: ogImages,
+      images: twitterImages,
     },
   };
 }
@@ -72,7 +89,7 @@ export function organizationSchema() {
     "@id": ORG_ID,
     name: site.brand,
     legalName: site.business.legalName,
-    url: BASE,
+    url: absoluteUrl("/"),
     email: site.email,
     telephone: `+${site.phone}`,
     logo: {
@@ -97,7 +114,7 @@ export function websiteSchema() {
   return {
     "@type": "WebSite",
     "@id": WEBSITE_ID,
-    url: BASE,
+    url: absoluteUrl("/"),
     name: site.brand,
     inLanguage: "tr-TR",
     publisher: { "@id": ORG_ID },
@@ -111,7 +128,7 @@ export function localBusinessSchema() {
     "@id": LOCALBUSINESS_ID,
     name: site.brand,
     image: absoluteUrl(site.seo.ogImage),
-    url: BASE,
+    url: absoluteUrl("/"),
     telephone: `+${site.phone}`,
     email: site.email,
     priceRange: site.business.priceRange,
@@ -218,6 +235,7 @@ export function districtBusinessSchema(d: District) {
     name: `${site.brand} — ${d.name}`,
     description: d.seoText,
     url: absoluteUrl(`/${d.slug}`),
+    image: absoluteUrl(site.seo.ogImage),
     telephone: `+${site.phone}`,
     priceRange: site.business.priceRange,
     parentOrganization: { "@id": ORG_ID },
@@ -226,11 +244,14 @@ export function districtBusinessSchema(d: District) {
       name: d.name,
       containedInPlace: { "@type": "AdministrativeArea", name: site.region },
     },
+    // İşletmenin fiziki adresi (aynı işletme, o ilçeye hizmet veriyor).
     address: {
       "@type": "PostalAddress",
-      addressLocality: d.name,
-      addressRegion: "İstanbul",
-      addressCountry: "TR",
+      streetAddress: site.business.streetAddress,
+      addressLocality: site.business.addressLocality,
+      addressRegion: site.business.addressRegion,
+      postalCode: site.business.postalCode,
+      addressCountry: site.business.addressCountry,
     },
   };
 }

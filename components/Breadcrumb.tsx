@@ -7,7 +7,7 @@ export default function Breadcrumb({
   items: { label: string; href?: string }[];
 }) {
   return (
-    <nav className="mb-6 flex flex-wrap items-center gap-1 text-sm text-graphite-500">
+    <nav className="mb-6 flex flex-wrap items-center gap-1 text-sm text-graphite-300">
       {items.map((it, i) => (
         <span key={i} className="flex items-center gap-1">
           {it.href ? (

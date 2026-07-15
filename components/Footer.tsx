@@ -86,10 +86,10 @@ export default function Footer() {
 
         {/* İlçe hızlı linkleri */}
         <div className="mt-10 border-t border-white/8 pt-6">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-graphite-500">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-graphite-300">
             Hizmet Bölgeleri
           </p>
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-xs text-graphite-500">
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-xs text-graphite-300">
             {districts.map((d) => (
               <Link key={d.slug} href={`/${d.slug}`} className="hover:text-copper-400">
                 {d.name}
@@ -98,7 +98,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 flex flex-col items-center justify-between gap-3 border-t border-white/8 pt-6 text-xs text-graphite-500 sm:flex-row">
+        <div className="mt-8 flex flex-col items-center justify-between gap-3 border-t border-white/8 pt-6 text-xs text-graphite-300 sm:flex-row">
           <p>© {site.brand} — Tüm hakları saklıdır.</p>
           <div className="flex gap-4">
             <Link href="/gizlilik-politikasi" className="hover:text-copper-400">Gizlilik Politikası</Link>

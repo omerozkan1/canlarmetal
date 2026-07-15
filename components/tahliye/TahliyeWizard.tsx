@@ -157,6 +157,7 @@ export default function TahliyeWizard() {
           <div>
             <StepTitle n={2} title="Hangi ilçedesiniz?" />
             <select
+              aria-label="İlçe"
               className="input-field"
               value={ilce}
               onChange={(e) => {
@@ -181,6 +182,7 @@ export default function TahliyeWizard() {
             {selectedDistrict ? (
               <>
                 <select
+                  aria-label="Mahalle"
                   className="input-field"
                   value={mahalle}
                   onChange={(e) => setMahalle(e.target.value)}
@@ -192,7 +194,7 @@ export default function TahliyeWizard() {
                     </option>
                   ))}
                 </select>
-                <p className="mt-3 text-sm text-graphite-500">
+                <p className="mt-3 text-sm text-graphite-300">
                   Listede yoksa boş bırakabilirsiniz — WhatsApp'ta belirtirsiniz.
                 </p>
               </>
@@ -257,6 +259,7 @@ export default function TahliyeWizard() {
               <div className="relative flex-1">
                 <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-graphite-500" />
                 <input
+                  aria-label="Eşya ara"
                   className="input-field !pl-10"
                   placeholder="Eşya yazın: eski koltuk, metal hurda, sandalye, koli..."
                   value={search}
@@ -306,7 +309,7 @@ export default function TahliyeWizard() {
                 ))}
               </div>
             ) : (
-              <p className="rounded-xl border border-dashed border-white/10 py-6 text-center text-sm text-graphite-500">
+              <p className="rounded-xl border border-dashed border-white/10 py-6 text-center text-sm text-graphite-300">
                 Henüz eşya eklenmedi. Yukarıdan seçin veya yazın.
               </p>
             )}

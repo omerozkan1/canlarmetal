@@ -41,7 +41,7 @@ export default function TahliyePage() {
       {/* HERO */}
       <section className="metal-texture">
         <div className="mx-auto max-w-6xl px-4 py-14">
-          <nav className="mb-6 flex items-center gap-1 text-sm text-graphite-500">
+          <nav className="mb-6 flex items-center gap-1 text-sm text-graphite-300">
             <Link href="/" className="hover:text-copper-400">Ana Sayfa</Link>
             <ChevronRight className="h-4 w-4" />
             <span className="text-graphite-300">Ücretli Eşya Tahliyesi</span>
